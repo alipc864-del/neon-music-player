@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #07070d;
+    --card: rgba(18, 18, 30, 0.72);
+    --purple: #8b5cf6;
+    --blue: #3b82f6;
+    --pink: #ec4899;
+    --text: #ffffff;
+    --muted: #9292a8;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    animation: float 7s ease-in-out infinite alternate;
+}
+
+body::before {
+    background: var(--purple);
+    top: -120px;
+    left: -100px;
+}
+
+body::after {
+    background: var(--blue);
+    bottom: -130px;
+    right: -100px;
+    animation-delay: -3s;
+}
+
+.music-player {
+    width: 360px;
+    padding: 28px;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    background: var(--card);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.55),
+        0 0 50px rgba(139, 92, 246, 0.12);
+    animation: cardIn 0.9s cubic-bezier(.16, 1, .3, 1);
+}
+
+.cover {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.cover:hover img {
+    transform: scale(1.08);
+}
+
+.song-info {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.song-info h2 {
+    font-size: 22px;
+    margin-bottom: 7px;
+    letter-spacing: 0.3px;
+}
+
+.song-info p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-container span {
+    color: var(--muted);
+    font-size: 11px;
+    min-width: 28px;
+}
+
+.progress-container span:last-child {
+    text-align: right;
+}
+
+input[type="range"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        var(--purple),
+        var(--blue)
+    );
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--purple);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+    transition: 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin: 15px 0 25px;
+}
+
+.controls button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    background: rgba(255, 255, 255, 0.07);
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.25s ease;
+}
+
+.controls button:hover {
+    transform: translateY(-4px) scale(1.08);
+    background: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
+}
+
+.controls button:active {
+    transform: scale(0.92);
+}
+
+#play {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    box-shadow:
+        0 10px 35px rgba(99, 102, 241, 0.4),
+        0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+#play:hover {
+    box-shadow:
+        0 15px 45px rgba(99, 102, 241, 0.55),
+        0 0 45px rgba(139, 92, 246, 0.35);
+}
+
+.volume {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.volume span {
+    font-size: 15px;
+}
+
+.volume input {
+    flex: 1;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes float {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(70px, 50px) scale(1.15);
+    }
+}
+
+@media (max-width: 420px) {
+    .music-player {
+        width: calc(100% - 30px);
+        padding: 22px;
+    }
+}
